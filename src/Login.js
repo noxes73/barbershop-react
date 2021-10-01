@@ -3,6 +3,7 @@ import { Segment, Form, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Login extends React.Component {
+  linkTo = () => {};
   render() {
     return (
       <div>
@@ -28,8 +29,9 @@ class Login extends React.Component {
               label="Password"
               type="password"
             />
-
-            <Button content="Login" primary />
+            <Link to={"/calendar"}>
+              <Button content="Login" primary></Button>
+            </Link>
           </Form>
         </Segment>
       </div>
