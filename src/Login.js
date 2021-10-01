@@ -3,7 +3,6 @@ import { Segment, Form, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class Login extends React.Component {
-  linkTo = () => {};
   render() {
     return (
       <div>
