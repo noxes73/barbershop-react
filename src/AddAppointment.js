@@ -4,6 +4,9 @@ import { Button, Segment, Input, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class AddAppointment extends React.Component {
+  state = {
+    appointmentDetails: [{ name: "asd" }, { time: "time" }, { color: "color" }],
+  };
   getOptions = (number, prefix = "Choice ") => {
     _.times(number, (index) => ({
       key: index,
@@ -11,7 +14,11 @@ class AddAppointment extends React.Component {
       value: index,
     }));
   };
-  play = () => {};
+  changeName = (e) => {
+    this.setState((prevState) => {
+      prevState.appointmentDetails[0].name = e.target.value;
+    });
+  };
   render() {
     return (
       <div>
@@ -21,17 +28,26 @@ class AddAppointment extends React.Component {
           </Link>
         </div>
         <Segment>
-          <Input label="Name" style={{ padding: "5px" }}></Input> <br />
+          <Input
+            label="Name"
+            style={{ padding: "5px" }}
+            onChange={this.changeName}
+          ></Input>{" "}
+          <br />
           <Dropdown
             button
-            style={{ margin: "10px" }}
+            style={{
+              margin: "10px",
+            }}
             placeholder="Select Hour"
             scolling
             options={this.getOptions()}
           />
           <br />
           <Dropdown
-            style={{ margin: "10px" }}
+            style={{
+              margin: "10px",
+            }}
             text="Color"
             button
             className="icon"
@@ -43,6 +59,16 @@ class AddAppointment extends React.Component {
               <Dropdown.Item text="Green" />
             </Dropdown.Menu>
           </Dropdown>
+          <br />
+          <Button
+            style={{
+              margin: "10px",
+              paddingLeft: "30px",
+              paddingRight: "30px",
+            }}
+          >
+            Add
+          </Button>
         </Segment>
       </div>
     );
