@@ -66,7 +66,6 @@ class AddAppointment extends React.Component {
             style={{ padding: "5px" }}
             onChange={this.changeName}
           ></Input>
-          <br />
           <Dropdown
             button
             style={{
@@ -77,8 +76,6 @@ class AddAppointment extends React.Component {
             options={this.state.hourOptions}
             onChange={this.changeHour}
           />
-          <br />
-
           <Dropdown
             style={{
               margin: "10px",
@@ -89,7 +86,6 @@ class AddAppointment extends React.Component {
             onChange={this.changeColor}
           />
 
-          <br />
           <Button
             style={{
               margin: "10px",
@@ -100,8 +96,8 @@ class AddAppointment extends React.Component {
           >
             Add
           </Button>
+          <Button onClick={this.testIt}>Test</Button>
         </Segment>
-        <Button onClick={this.testIt}>test</Button>
       </div>
     );
   }
