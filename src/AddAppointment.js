@@ -1,24 +1,57 @@
-import _ from "lodash";
 import React from "react";
 import { Button, Segment, Input, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class AddAppointment extends React.Component {
   state = {
-    appointmentDetails: [{ name: "asd" }, { time: "time" }, { color: "color" }],
+    appointment: { name: "asd", time: 0, color: "color" },
+    appointments: [],
+    hourOptions: [],
+    colorOptions: [
+      { key: 1, text: "Red", value: "red" },
+      { key: 2, text: "Green", value: "green" },
+      { key: 3, text: "Blue", value: "blue" },
+      { key: 4, text: "Yellow", value: "yellow" },
+    ],
   };
-  getOptions = (number, prefix = "Choice ") => {
-    _.times(number, (index) => ({
-      key: index,
-      text: `${prefix}${index}`,
-      value: index,
-    }));
+  // nem teljesen értem hogy ez hogy működik https://react.semantic-ui.com/modules/dropdown/#variations-scrolling
+  componentDidMount = async () => {
+    for (var i = 1; i < 25; i++) {
+      await this.setState((prevState) => {
+        let opt = prevState.hourOptions;
+        opt.push({ key: i - 1, text: i + ":00 óra", value: i });
+        return { houroptions: opt };
+      });
+    }
   };
   changeName = (e) => {
     this.setState((prevState) => {
-      prevState.appointmentDetails[0].name = e.target.value;
+      prevState.appointment.name = e.target.value;
+      return { prevState };
     });
   };
+  changeHour = (a, e) => {
+    this.setState((prevState) => {
+      prevState.appointment.time = e.value;
+      return { prevState };
+    });
+  };
+  changeColor = (a, e) => {
+    this.setState((prevState) => {
+      prevState.appointment.color = e.value;
+      return { prevState };
+    });
+  };
+  addToAppointments = () => {
+    this.setState((prevState) => {
+      prevState.appointments.push(this.state.appointment);
+      return { prevState };
+    });
+  };
+  testIt = () => {
+    console.log(this.state.appointments);
+  };
+
   render() {
     return (
       <div>
@@ -32,7 +65,7 @@ class AddAppointment extends React.Component {
             label="Name"
             style={{ padding: "5px" }}
             onChange={this.changeName}
-          ></Input>{" "}
+          ></Input>
           <br />
           <Dropdown
             button
@@ -40,25 +73,22 @@ class AddAppointment extends React.Component {
               margin: "10px",
             }}
             placeholder="Select Hour"
-            scolling
-            options={this.getOptions()}
+            scrolling
+            options={this.state.hourOptions}
+            onChange={this.changeHour}
           />
           <br />
+
           <Dropdown
             style={{
               margin: "10px",
             }}
-            text="Color"
-            button
-            className="icon"
-          >
-            <Dropdown.Menu>
-              <Dropdown.Divider />
-              <Dropdown.Item text="Red" />
-              <Dropdown.Item text="Blue" />
-              <Dropdown.Item text="Green" />
-            </Dropdown.Menu>
-          </Dropdown>
+            clearable
+            options={this.state.colorOptions}
+            selection
+            onChange={this.changeColor}
+          />
+
           <br />
           <Button
             style={{
@@ -66,10 +96,12 @@ class AddAppointment extends React.Component {
               paddingLeft: "30px",
               paddingRight: "30px",
             }}
+            onClick={this.addToAppointments}
           >
             Add
           </Button>
         </Segment>
+        <Button onClick={this.testIt}>test</Button>
       </div>
     );
   }

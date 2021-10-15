@@ -5,7 +5,12 @@ import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class CalendarApp extends React.Component {
-  state = { localAppointments: [] };
+  state = {
+    localAppointments: [],
+  };
+  onChange = (e) => {
+    console.log(JSON.stringify(e));
+  };
   render() {
     return (
       <div>
@@ -39,7 +44,7 @@ class CalendarApp extends React.Component {
             <Button content="Add appointment" primary></Button>
           </Link>
           <div style={{ paddingTop: "1%" }}>
-            <Calendar />
+            <Calendar onChange={this.onChange} value={this.value} />
           </div>
         </div>
       </div>
