@@ -16,7 +16,7 @@ class AddAppointment extends React.Component {
   };
   // nem teljesen értem hogy ez hogy működik https://react.semantic-ui.com/modules/dropdown/#variations-scrolling
   componentDidMount = async () => {
-    for (var i = 1; i < 25; i++) {
+    for (let i = 1; i < 25; i++) {
       await this.setState((prevState) => {
         let opt = prevState.hourOptions;
         opt.push({ key: i - 1, text: i + ":00 óra", value: i });
